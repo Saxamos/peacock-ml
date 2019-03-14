@@ -1,2 +1,8 @@
 # Created by .ignore support plugin (hsz.mobi)
 .idea/
+.DS_Store
+peacock_ml.egg-info/
+peacock_ml/__pycache__/
+peacock_ml/biaised_data/__pycache__/
+peacock_ml/data_generator/__pycache__/
+peacock_ml/uncertainty/__pycache__/
