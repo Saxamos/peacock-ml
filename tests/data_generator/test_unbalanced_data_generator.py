@@ -16,7 +16,7 @@ class TestCreateWeightedMulticlassDataset(unittest.TestCase):
         weights = (0.2, 0.8)
 
         # When
-        df_train, df_test = create_weighted_multiclass_dataset(n_samples, n_classes, weights)
+        df_train, df_test = create_weighted_multiclass_dataset(n_samples, n_classes, weights, random_state=6)
 
         # Then
         expected_df_train = pd.DataFrame({0: [0.162562, -0.873337],

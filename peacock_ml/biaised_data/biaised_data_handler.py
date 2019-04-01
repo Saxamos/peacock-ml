@@ -4,7 +4,7 @@ import xgboost as xgb
 NUMBER_OF_ITERATION = 4
 
 
-def find_weights_and_compute_score(df_train, df_test, epsilon=0.01):
+def find_weights_and_compute_score(df_train, df_test, epsilon=0.01, random_state=None):
     """
     A function that finds the weights with an iterative approach in order to improve model when there is a biais in
     data distribution, i.e: P[Y|X] is not the same in train and test set.
@@ -14,6 +14,7 @@ def find_weights_and_compute_score(df_train, df_test, epsilon=0.01):
         df_train: train dataframe.
         df_test: test dataframe.
         epsilon: if the delta between previously computed weights and new weights is less than epsilon, we stop
+        random_state: (default None) Choose a seed.
 
         Returns
         -------
@@ -28,7 +29,7 @@ def find_weights_and_compute_score(df_train, df_test, epsilon=0.01):
     """
     xgb_params = {'max_depth': 4, 'eta': 1, 'silent': 1, 'num_class': len(df_train.y.unique()),
                   'objective': 'multi:softmax', 'eval_metric': 'merror'}
-    best_iteration = _find_best_iteration(df_train, xgb_params)
+    best_iteration = _find_best_iteration(df_train, xgb_params, random_state)
     initial_weights = _compute_equal_weights_for_each_class(df_train)
 
     predictions = _train_and_predict(df_train, df_test, initial_weights, xgb_params, best_iteration)
@@ -48,11 +49,11 @@ def find_weights_and_compute_score(df_train, df_test, epsilon=0.01):
     return weight_by_class_list
 
 
-def _find_best_iteration(df_train, xgb_params):
+def _find_best_iteration(df_train, xgb_params, random_state):
     X_train, X_eval, y_train, y_eval = sk.model_selection.train_test_split(df_train.iloc[:, :-1].values,
                                                                            df_train.y.values,
                                                                            test_size=0.3,
-                                                                           random_state=6)
+                                                                           random_state=random_state)
     dtrain_eval = xgb.DMatrix(X_train, y_train)
     deval = xgb.DMatrix(X_eval, y_eval)
     eval_list = [(deval, 'eval'), (dtrain_eval, 'train')]

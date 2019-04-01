@@ -5,19 +5,18 @@ from sklearn.datasets import make_classification
 PERCENTAGE_TO_KEEP_IN_TRAIN = 0.66
 
 
-def create_weighted_multiclass_dataset(n_samples, n_classes, weights):
+def create_weighted_multiclass_dataset(n_samples, n_classes, weights, random_state=None):
     """
     A function that generate unbalanced dataset for classification.
 
         Parameters
         ----------
         n_samples: The number of observation to generate.
-
         n_classes: The number of classes.
-
         weights: The proportion of each class in the global generated dataset.
          Note that train and test dataset are subsample so the distributions will be different.
          The sum must be equal to 1.
+        random_state: (default None) Choose a seed
 
         Returns
         -------
@@ -27,8 +26,7 @@ def create_weighted_multiclass_dataset(n_samples, n_classes, weights):
         --------
         df_train, df_test = create_weighted_multiclass_dataset(n_samples=50000,
                                                                n_classes=5,
-                                                               weights=(0.22, 0.08, 0.4, 0.2, 0.1),
-                                                               plot_distributions=True)
+                                                               weights=(0.22, 0.08, 0.4, 0.2, 0.1))
     """
     assert len(weights) == n_classes, 'Invalid number of weights.'
     X, y = make_classification(n_classes=n_classes,
@@ -39,7 +37,7 @@ def create_weighted_multiclass_dataset(n_samples, n_classes, weights):
                                flip_y=0.10,
                                class_sep=0.7,
                                weights=weights,
-                               random_state=6)
+                               random_state=random_state)
     df = pd.DataFrame(X)
     df['y'] = y
 
