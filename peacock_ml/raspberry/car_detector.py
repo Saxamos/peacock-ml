@@ -13,7 +13,7 @@ class CarDetector:
     MODEL_RESOLUTION = 128, 128
     THRESHOLD = 100
 
-    def __init__(self, pi_camera, model, saved_folder='/home/pi/picamera_pictures', do_processing=False):
+    def __init__(self, pi_camera, model, saved_folder, do_processing=False):
         self.pi_camera = pi_camera
         self.model = model
         self.saved_folder = saved_folder
