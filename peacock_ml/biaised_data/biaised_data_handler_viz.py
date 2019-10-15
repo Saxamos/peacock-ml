@@ -50,5 +50,5 @@ def plot_iteratively_computed_weights(weight_by_class_list, save_gif=False, figs
 
     anim = animation.FuncAnimation(fig, animate, repeat=False, blit=False, frames=nb_of_frame, interval=800)
     if save_gif:
-        anim.save('animation.gif', writer='imagemagick', fps=10)
+        anim.save('biaised_data.gif', writer='imagemagick', fps=10)
     plt.show()
