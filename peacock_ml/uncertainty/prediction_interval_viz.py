@@ -2,7 +2,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def plot_eval_prediction_interval(target_eval, prediction, lower_error_list, upper_error_list, figsize=(10, 7)):
+def plot_eval_prediction_interval(
+    target_eval, prediction, lower_error_list, upper_error_list, figsize=(10, 7)
+):
     """
     Display the sorted predictions of the evaluation set and their prediction intervals versus the ground truth.
 
@@ -45,19 +47,34 @@ def plot_eval_prediction_interval(target_eval, prediction, lower_error_list, upp
     permutation_sorted_ground_truth = target_eval.argsort()
     y = target_eval[permutation_sorted_ground_truth]
     sorted_predictions = prediction[permutation_sorted_ground_truth]
-    upper_error = np.array(upper_error_list)[permutation_sorted_ground_truth] - sorted_predictions
-    lower_error = sorted_predictions - np.array(lower_error_list)[permutation_sorted_ground_truth]
+    upper_error = (
+        np.array(upper_error_list)[permutation_sorted_ground_truth] - sorted_predictions
+    )
+    lower_error = (
+        sorted_predictions - np.array(lower_error_list)[permutation_sorted_ground_truth]
+    )
 
     plt.figure(figsize=figsize)
-    plt.plot(x, y, color='c', marker='o', markersize=6, label='True values', linestyle='None')
-    plt.errorbar(x, sorted_predictions, yerr=[lower_error, upper_error], fmt='bo', label='Predicted values', capsize=3)
-    plt.ylabel('Response value')
-    plt.xlabel('Sample no.')
-    plt.legend(loc='upper left')
+    plt.plot(
+        x, y, color="c", marker="o", markersize=6, label="True values", linestyle="None"
+    )
+    plt.errorbar(
+        x,
+        sorted_predictions,
+        yerr=[lower_error, upper_error],
+        fmt="bo",
+        label="Predicted values",
+        capsize=3,
+    )
+    plt.ylabel("Response value")
+    plt.xlabel("Sample no.")
+    plt.legend(loc="upper left")
     plt.show()
 
 
-def plot_prediction_interval(prediction, lower_error_list, upper_error_list, figsize=(10, 7)):
+def plot_prediction_interval(
+    prediction, lower_error_list, upper_error_list, figsize=(10, 7)
+):
     """
     Display the sorted predictions their prediction intervals.
 
@@ -93,12 +110,23 @@ def plot_prediction_interval(prediction, lower_error_list, upper_error_list, fig
     x = range(len(prediction))
     permutation_sorted_prediction = prediction.argsort()
     sorted_predictions = prediction[permutation_sorted_prediction]
-    upper_error = np.array(upper_error_list)[permutation_sorted_prediction] - sorted_predictions
-    lower_error = sorted_predictions - np.array(lower_error_list)[permutation_sorted_prediction]
+    upper_error = (
+        np.array(upper_error_list)[permutation_sorted_prediction] - sorted_predictions
+    )
+    lower_error = (
+        sorted_predictions - np.array(lower_error_list)[permutation_sorted_prediction]
+    )
 
     plt.figure(figsize=figsize)
-    plt.errorbar(x, sorted_predictions, yerr=[lower_error, upper_error], fmt='bo', label='Predicted values', capsize=3)
-    plt.ylabel('Response value')
-    plt.xlabel('Sample no.')
-    plt.legend(loc='upper left')
+    plt.errorbar(
+        x,
+        sorted_predictions,
+        yerr=[lower_error, upper_error],
+        fmt="bo",
+        label="Predicted values",
+        capsize=3,
+    )
+    plt.ylabel("Response value")
+    plt.xlabel("Sample no.")
+    plt.legend(loc="upper left")
     plt.show()

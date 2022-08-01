@@ -3,7 +3,9 @@ import matplotlib.pyplot as plt
 import numpy
 
 
-def plot_iteratively_computed_weights(weight_by_class_list, save_gif=False, figsize=(10, 7)):
+def plot_iteratively_computed_weights(
+    weight_by_class_list, save_gif=False, figsize=(10, 7)
+):
     """
     Display the computed weights by class at each iteration.
 
@@ -34,9 +36,9 @@ def plot_iteratively_computed_weights(weight_by_class_list, save_gif=False, figs
 
     fig = plt.figure(figsize=figsize)
     plt.ylim((0, 1))
-    plt.title('Weights evolution by iteration')
-    plt.ylabel('Proportion')
-    plt.xlabel('Class')
+    plt.title("Weights evolution by iteration")
+    plt.ylabel("Proportion")
+    plt.xlabel("Class")
 
     def barlist(i):
         return list(weight_by_class_list[i].values())
@@ -48,7 +50,9 @@ def plot_iteratively_computed_weights(weight_by_class_list, save_gif=False, figs
         for i, b in enumerate(barcollection):
             b.set_height(y[i])
 
-    anim = animation.FuncAnimation(fig, animate, repeat=False, blit=False, frames=nb_of_frame, interval=800)
+    anim = animation.FuncAnimation(
+        fig, animate, repeat=False, blit=False, frames=nb_of_frame, interval=800
+    )
     if save_gif:
-        anim.save('biaised_data.gif', writer='imagemagick', fps=10)
+        anim.save("biaised_data.gif", writer="imagemagick", fps=10)
     plt.show()

@@ -30,12 +30,12 @@ def plot_generated_distribution(df_test, df_train, figsize=(10, 7)):
     with plt.xkcd():
         plt.figure(figsize=figsize)
         df_test.y.value_counts().ix[[i for i in range(n_classes)]].plot.bar()
-        plt.title('Created test distribution')
+        plt.title("Created test distribution")
         plt.ylim((0, y_max))
         plt.show()
     with plt.xkcd():
         plt.figure(figsize=figsize)
         df_train.y.value_counts().ix[[i for i in range(n_classes)]].plot.bar()
-        plt.title('Created train distribution')
+        plt.title("Created train distribution")
         plt.ylim((0, y_max))
         plt.show()
